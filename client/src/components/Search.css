@@ -1,0 +1,25 @@
+div{
+    /* justify-content:flex; */
+    justify-content: space-around;
+    margin: 200px 200px;
+
+}
+input{
+    /* text-align: left; */
+    font-size: 20px;
+    background-color: transparent;
+    /* justify-content:flex; */
+    width: 60%;
+    height: 46px;    
+    /* padding:10px 90px; */
+    /* margin: 219px 409px; */
+}
+
+button{
+    /* justify-content: flex-start; */
+    /* margin: 10px -400px; */
+    background-color: transparent;
+    width:15%;
+    height: 48px;
+    color: rgb(24, 225, 47);
+}
