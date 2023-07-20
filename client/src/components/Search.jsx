@@ -11,6 +11,8 @@ export const Search=()=>{
     const [query,setQuery]=useState("")
     const [passin,setPassin]=useState("")
     const [urlcode,setUrlcode]=useState("")
+    const [wordstat,setWordstat]=useState("")
+    const [status,setStatus]=useState("No Video to show here")
     
     const handelchange=(e)=>{
         setUrl(e.target.value)
@@ -18,20 +20,25 @@ export const Search=()=>{
     }
     const handelsubmit=async()=>{
         let pos=url.search('=')+1
+        if(pos===0)pos=url.search('.b')+4
+        console.log("pos is -->",pos,)
         setUrlcode(url.substring(pos))
         console.log("url code is ",urlcode)
         try {
-            const man=await axios.get(`${urlcode}`)
-            // console.log(man.data)
+            const man=await axios.get(`${url.substring(pos)}`)
+            console.log(man.data)
             if(man.data!=="id error"){
                 console.log("video found")
+                setStatus("Video Found ( "+man.data.length+" Words detected)")
+                if(man.data.length<10)setStatus("No Words in video")
                 bool=true
                 vdonf=false
             }else{vdonf=true;bool =false}
         } catch (error) {
+            setStatus("Wrong Url")
             console.log(error)
         }
-        setUrl(" "+url);
+        setUrl(""+url);
     }
     const queryChange=(e)=>{
         setQuery(e.target.value)
@@ -39,7 +46,7 @@ export const Search=()=>{
     const querySubmit=async()=>{
         if(bool){
             const men=await axios.get(`find/${query}`)
-            if(men.data)console.log(men.data)
+            if(men.data)setWordstat("found items "+men.data.length)
             showcards=true
             setQuery("");setPassin(men)
         }
@@ -60,6 +67,9 @@ export const Search=()=>{
             <button onClick={querySubmit}>START</button>
             
         </div>
+            {<h1>{status}</h1>}
+            {<h1>{wordstat}</h1>}
+            
             {showcards?<Card mp={passin} qry={urlcode}/>:<></>}
             </>
     );

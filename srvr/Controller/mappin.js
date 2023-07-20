@@ -3,7 +3,6 @@ ans.push({"str":"by","num":2})
 ans.map( (fruit,index)=>
        (
            console.log(index,"  ",fruit)
-           
        )
        )
        import { words,capfile } from "./apii.js";

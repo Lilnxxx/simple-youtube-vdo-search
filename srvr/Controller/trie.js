@@ -1,10 +1,12 @@
+// import { words,capfile } from "./apii.js";
+
 class Node{
     constructor(){
         // this.e=e;
         // this.next=null;
         this.end=false;
         this.alpha=Array(26).fill(null)
-        this.arr=Array(26).fill(0)
+        // this.arr=Array(26).fill(0)
     }
 }
 class ll{
@@ -45,11 +47,35 @@ class ll{
         for(var i=0;i<a.length;i++){
             var pos=a.charCodeAt(i)-96;
             if(!curr.alpha[pos])return false;
-            console.log(a[i]+" ")
+            // console.log(a[i]+" ")
             if((i==a.length-1)&&curr.end==false)return false
             curr=curr.alpha[pos]
         }
         return true;
+    }
+    search_word(a){
+        var arr=[]
+        var curr=this.head
+        for(var i=0;i<a.length;i++){
+            var pos=a.charCodeAt(i)-96;
+            if(!curr.alpha[pos])return [];
+            console.log(a[i]+" ")
+            if((i==a.length-1)&&curr.end){arr.push(a);return arr}
+            curr=curr.alpha[pos]
+        }
+        var l=a
+        function rek(curr2,l){
+            for(let i=0;i<26;i++){
+                if(!curr2.alpha[i])continue
+                // console.log(String.fromCharCode(96+i))
+                // l=l+String.fromCharCode(96+i)
+                if(curr2.end)arr.push(l+String.fromCharCode(96+i))
+                // console.log(l)
+                rek(curr2.alpha[i],l+String.fromCharCode(96+i))
+            }
+        }
+        rek(curr,l)
+        return arr
     }
 
 }
@@ -57,9 +83,14 @@ class ll{
 const ab=new ll();
 ab.addtrie("tinii")
 ab.addtrie("tiniiji")
+ab.addtrie('milk')
+ab.addtrie('makye')
+ab.addtrie('mink')
+ab.addtrie('master')
 // console.log("\n"+ab.head.alpha[20])
-console.log("\n\n")
-const g=ab.chkword('tiniijifsdfs')
+// console.log("\n\n")
+// const g=ab.chkword('tiniijifsdfs')
+const g=ab.search_word('m')
 console.log(g)
 
 // for(var i=0;i<10;i++){
